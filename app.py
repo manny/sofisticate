@@ -10,14 +10,16 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     print get_post_message([], get_artworks())
+    print top_tags(get_artwork())
     return render_template("test.html", message="test", link="test")
 
 def top_tags(url):
     clarifai_api = ClarifaiApi()
-    result = clarifai_api.tag_image_urls('http://www.clarifai.com/img/metro-north.jpg')
+    result = clarifai_api.tag_image_urls(str(url).replace("medium", "large"))
+    print type(result) 
     return result
 
-def get_artworks():
+def get_artwork():
     args = {"offset": randint(0, 100), "size":1}
     headers = {"X-Xapp-Token": ARTSY_TOKEN}
     arts = requests.get('https://api.artsy.net/api/artworks',params=args, headers=headers)  
