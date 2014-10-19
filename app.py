@@ -9,11 +9,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-
-    art_info = get_artwork()
-    tags = top_tags(art_info['link'])
-    print get_post_message(tags, art_info)
-    return render_template("test.html", message="test", link="test")
+    artwork = get_artwork()
+    tags = top_tags(artwork['link'])
+    message = get_post_message(tags, artwork)
+    print artwork['link']
+    print message
+    return render_template("test.html", message=message, link=artwork['link'])
 
 def top_tags(url):
     clarifai_api = ClarifaiApi()
@@ -22,7 +23,7 @@ def top_tags(url):
     return top_three
 
 def get_artwork():
-    args = {"offset": randint(0, 100), "size":1}
+    args = {"offset": randint(0, 10000), "size":1}
     headers = {"X-Xapp-Token": ARTSY_TOKEN}
     arts = requests.get('https://api.artsy.net/api/artworks',params=args, headers=headers)  
     art_json = simplejson.loads(arts.text)
@@ -69,7 +70,7 @@ def get_post_message(tags, art_info):
     message = message + " The use of " + art_info['art_medium'] + " is " + adject + " example of ";
     message = message + art_info['artist_nationality'] + " artwork. ";
     for tag in tags:
-        message = message + "#" + tag + " ";
+        message = message + "#" + tag.replace(" ", "") + " ";
     
     return message;
 

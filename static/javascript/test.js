@@ -2,11 +2,10 @@ document.addEventListener('DOMContentLoaded', function(){
 	var button = document.getElementById('sofisticate');
 	console.log(message);
 	button.addEventListener('click', function(){
-		FB.login(function(){
-			FB.getLoginStatus(function response() {
-				if(response.status == 'connected'){			
-					FB.api('me/feed', 'post',{message: 'This is a test!'});
-				}
+		FB.login(function(response){
+			console.log(response)
+			FB.getLoginStatus(function (response) {
+				FB.api('me/feed', 'post',{message: message, link: link});
 		}, {scope: 'publish_actions'});	
 	});
 });
