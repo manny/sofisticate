@@ -3,6 +3,7 @@ from client import ClarifaiApi
 from random import randint
 from key import ARTSY_TOKEN
 import requests
+import simplejson
 
 app = Flask(__name__)
 
@@ -21,7 +22,8 @@ def get_artworks():
     args = {"offset": randint(0, 100), "size":1}
     headers = {"X-Xapp-Token": ARTSY_TOKEN}
     arts = requests.get('https://api.artsy.net/api/artworks',params=args, headers=headers)  
-    print arts.text
+    art_json = simplejson.loads(arts.text)
+    link = art_json['_embedded']['artworks'][0]['_links']['thumbnail']['href']
     
 def get_post_message(tags, artist_name, artist_nationality, medium, artwork_name):
     message = "Wow! " + artwork_name + " by " + artist_name + " inspires me! ";
