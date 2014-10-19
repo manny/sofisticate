@@ -23,5 +23,15 @@ def get_artworks():
     arts = requests.get('https://api.artsy.net/api/artworks',params=args, headers=headers)  
     print arts.text
     
+def get_post_message(tags, artist_name, artist_nationality, medium, artwork_name):
+    message = "Wow! " + artwork_name + " by " + artist_name + " inspires me! ";
+    message = message + " The use of " + medium + " is an amazing example of ";
+    message = message + artist_nationality + "artwork. ";
+
+    for tag in tags:
+        message = message + "#" + tag + " ";
+    
+    return message;
+
 if __name__ == "__main__":
     app.run(debug=True)
