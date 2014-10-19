@@ -9,14 +9,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    print top_tags(get_artwork())
+    top_tags(get_artwork())
     return render_template("test.html", message="test", link="test")
 
 def top_tags(url):
     clarifai_api = ClarifaiApi()
     result = clarifai_api.tag_image_urls(str(url).replace("medium", "large"))
-    print type(result) 
-    return result
+    top_three = result['results'][0]['result']['tag']['classes'][0:3]
+    return top_three
 
 def get_artwork():
     args = {"offset": randint(0, 100), "size":1}
