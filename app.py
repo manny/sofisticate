@@ -9,8 +9,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    top_tags(get_artwork())
-    print get_post_message([], get_artworks())
+    top_tags(get_artwork()['link'])
+    #print get_post_message([], get_artworks())
     return render_template("test.html", message="test", link="test")
 
 def top_tags(url):
@@ -29,7 +29,7 @@ def get_artwork():
     art_name = art_json['title']
     art_medium = art_json['medium']
     
-    link = art_json['_links']['thumbnail']['href']
+    link = str(art_json['_links']['thumbnail']['href']).replace("medium", "large")
     artist_link = art_json['_links']['artists']['href']
     artist_json = requests.get(artist_link, headers = headers)
     artist_json = simplejson.loads(artist_json.text)
@@ -43,7 +43,7 @@ def get_artwork():
     print art_name
     print art_medium
 
-    return {'artist_name': artist_name, 'artist_nationality': artist_nationality, 'art_name': art_name, 'art_medium': art_medium}
+    return {'artist_name': artist_name, 'artist_nationality': artist_nationality, 'art_name': art_name, 'art_medium': art_medium, 'link': link}
     
 def get_post_message(tags, art_info):
     message = "Wow! " + art_info['art_name'] + " by " + art_info['artist_name'] + " inspires me! ";
