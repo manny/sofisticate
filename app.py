@@ -9,8 +9,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    top_tags(get_artwork()['link'])
-    #print get_post_message([], get_artworks())
+
+    art_info = get_artwork()
+    tags = top_tags(art_info['link'])
+    print get_post_message(tags, art_info)
     return render_template("test.html", message="test", link="test")
 
 def top_tags(url):
