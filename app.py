@@ -28,6 +28,7 @@ def get_artwork():
     arts = requests.get('https://api.artsy.net/api/artworks',params=args, headers=headers)  
     art_json = simplejson.loads(arts.text)
     if not art_json['_embedded']['artworks']:
+        print art_json['_embedded']['artworks']
         return get_artwork()
     art_json = art_json['_embedded']['artworks'][0]
     
@@ -68,6 +69,8 @@ def get_post_message(tags, art_info):
 
     message = interject + "! " + art_info['art_name'] + " by " + art_info['artist_name'] + " "  + good_vibe + "! ";
     message = message + " The use of " + art_info['art_medium'] + " is " + adject + " example of ";
+    if not art_info['artist_nationality']:
+        art_info['artist_nationality'] = ""
     message = message + art_info['artist_nationality'] + " artwork. ";
     for tag in tags:
         message = message + "#" + tag.replace(" ", "") + " ";
