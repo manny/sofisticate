@@ -51,10 +51,23 @@ def get_artwork():
     return {'artist_name': artist_name, 'artist_nationality': artist_nationality, 'art_name': art_name, 'art_medium': art_medium, 'link': link}
     
 def get_post_message(tags, art_info):
-    message = "Wow! " + art_info['art_name'] + " by " + art_info['artist_name'] + " inspires me! ";
-    message = message + " The use of " + art_info['art_medium'] + " is an amazing example of ";
-    message = message + art_info['artist_nationality'] + " artwork. ";
+    interjections = ["Lo and behold", "Wow", "Holy shit", "Heigh-ho",
+                     "My word", "Right-o", "Good golly"]
+    adjectives = ["an amazing", "an exquisite", "a guileless", 
+                  "a sublime", "a phantasmagorical"]
+    
+    good_vibes = ["inspires me", "speaks to my soul", 
+                   "reminds me of my years as a long lad abroad", 
+                   "fasinates me", 
+                   "stirs upon me unspeakable emotions"]
 
+    interject = interjections[randint(0, len(interjections))]
+    adject = adjectives[randint(0, len(adjectives))]
+    good_vibe = good_vibes[randint(0, len(good_vibes))]
+
+    message = interject + "! " + art_info['art_name'] + " by " + art_info['artist_name'] + " "  + good_vibe + "! ";
+    message = message + " The use of " + art_info['art_medium'] + " is " + adject + " example of ";
+    message = message + art_info['artist_nationality'] + " artwork. ";
     for tag in tags:
         message = message + "#" + tag + " ";
     
