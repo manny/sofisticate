@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    get_artworks()
+    print get_post_message([], get_artworks())
     return render_template("test.html", message="test", link="test")
 
 def top_tags(url):
@@ -22,12 +22,31 @@ def get_artworks():
     headers = {"X-Xapp-Token": ARTSY_TOKEN}
     arts = requests.get('https://api.artsy.net/api/artworks',params=args, headers=headers)  
     art_json = simplejson.loads(arts.text)
-    link = art_json['_embedded']['artworks'][0]['_links']['thumbnail']['href']
+    art_json = art_json['_embedded']['artworks'][0]
     
-def get_post_message(tags, artist_name, artist_nationality, medium, artwork_name):
-    message = "Wow! " + artwork_name + " by " + artist_name + " inspires me! ";
-    message = message + " The use of " + medium + " is an amazing example of ";
-    message = message + artist_nationality + "artwork. ";
+    art_name = art_json['title']
+    art_medium = art_json['medium']
+    
+    link = art_json['_links']['thumbnail']['href']
+    artist_link = art_json['_links']['artists']['href']
+    artist_json = requests.get(artist_link, headers = headers)
+    artist_json = simplejson.loads(artist_json.text)
+    artist_json = artist_json['_embedded']['artists'][0]
+    
+    artist_name = artist_json['name']
+    artist_nationality = artist_json['nationality']
+
+    print artist_name
+    print artist_nationality
+    print art_name
+    print art_medium
+
+    return {'artist_name': artist_name, 'artist_nationality': artist_nationality, 'art_name': art_name, 'art_medium': art_medium}
+    
+def get_post_message(tags, art_info):
+    message = "Wow! " + art_info['art_name'] + " by " + art_info['artist_name'] + " inspires me! ";
+    message = message + " The use of " + art_info['art_medium'] + " is an amazing example of ";
+    message = message + art_info['artist_nationality'] + " artwork. ";
 
     for tag in tags:
         message = message + "#" + tag + " ";
