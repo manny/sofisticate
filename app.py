@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-<<<<<<< HEAD
     top_tags(get_artwork())
     print get_post_message([], get_artworks())
     return render_template("test.html", message="test", link="test")
