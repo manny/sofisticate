@@ -61,9 +61,9 @@ def get_post_message(tags, art_info):
                    "fasinates me", 
                    "stirs upon me unspeakable emotions"]
 
-    interject = interjections[randint(0, len(interjections))]
-    adject = adjectives[randint(0, len(adjectives))]
-    good_vibe = good_vibes[randint(0, len(good_vibes))]
+    interject = interjections[randint(0, len(interjections) - 1)]
+    adject = adjectives[randint(0, len(adjectives) - 1)]
+    good_vibe = good_vibes[randint(0, len(good_vibes) - 1)]
 
     message = interject + "! " + art_info['art_name'] + " by " + art_info['artist_name'] + " "  + good_vibe + "! ";
     message = message + " The use of " + art_info['art_medium'] + " is " + adject + " example of ";
