@@ -9,9 +9,8 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    #print top_tags()
     get_artworks()
-    return render_template("test.html")
+    return render_template("test.html", message="test", link="test")
 
 def top_tags(url):
     clarifai_api = ClarifaiApi()
