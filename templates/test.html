@@ -1,0 +1,47 @@
+<DOCTYPE html>
+<html>
+<head>
+<title>Facebook Login JavaScript Example</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="static/index.css">
+<link rel="stylesheet" type="text/css" href="static/css/semantic.css">
+</head>
+<body>
+	<script>
+  		window.fbAsyncInit = function() {
+    		FB.init({
+      		appId      : '660105944087176',
+      		xfbml      : true,
+      		version    : 'v2.1'
+    		});
+  		};
+
+  		(function(d, s, id){
+     		var js, fjs = d.getElementsByTagName(s)[0];
+     		if (d.getElementById(id)) {return;}
+     		js = d.createElement(s); js.id = id;
+     		js.src = "http://connect.facebook.net/en_US/sdk.js";
+     		fjs.parentNode.insertBefore(js, fjs);
+   		}(document, 'script', 'facebook-jssdk'));
+	
+	</script>
+	
+	<script src="test.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="static/javascript/semantic.js" type="text/javascript"></script>
+
+	<div id ="outer">
+	<div id ="inner">
+	<div id ="box">
+	<div class="ui huge header" style="color:white">Sofisticate Me</div>
+	<p class="ui" style="color:white">Let your Facebook friends know how sophisticated you are by posting fine art on your wall!</p>
+	<a class="ui green button" id="sofisticate">Sofisticate Me!</a>
+	</div>
+	</div>
+	</div>
+	
+
+
+
+</body> 
+
