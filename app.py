@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     print top_tags()
-    return render_template("test.html")
+    return render_template("test.html", message="test", link="google.com")
 
 
 def top_tags():
