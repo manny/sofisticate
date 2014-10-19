@@ -1,4 +1,5 @@
 import base64, json, logging, os, time, urllib2, urllib
+from key import CLARIFAI_APP_ID, CLARIFAI_APP_SECRET
 try:
   from PIL import Image
   CAN_RESIZE = True
@@ -52,11 +53,11 @@ class ClarifaiApi(object):
   def __init__(self, app_id=None, app_secret=None, base_url='https://api.clarifai.com',
                model='default', wait_on_throttle=True):
     if app_id is None:
-      self.CLIENT_ID = os.environ.get('CLARIFAI_APP_ID', None)
+      self.CLIENT_ID = CLARIFAI_APP_ID
     else:
       self.CLIENT_ID = app_id
     if app_secret is None:
-      self.CLIENT_SECRET = os.environ.get('CLARIFAI_APP_SECRET', None)
+      self.CLIENT_SECRET = CLARIFAI_APP_SECRET
     else:
       self.CLIENT_SECRET = app_secret
     self.wait_on_throttle = wait_on_throttle
