@@ -15,7 +15,7 @@ def home():
 
 def top_tags(url):
     clarifai_api = ClarifaiApi()
-    result = clarifai_api.tag_image_urls(str(url).replace("medium", "large"))
+    result = clarifai_api.tag_image_urls(url)
     top_three = result['results'][0]['result']['tag']['classes'][0:3]
     return top_three
 
@@ -24,12 +24,14 @@ def get_artwork():
     headers = {"X-Xapp-Token": ARTSY_TOKEN}
     arts = requests.get('https://api.artsy.net/api/artworks',params=args, headers=headers)  
     art_json = simplejson.loads(arts.text)
+    if not art_json['_embedded']['artworks']:
+        return get_artwork()
     art_json = art_json['_embedded']['artworks'][0]
     
     art_name = art_json['title']
     art_medium = art_json['medium']
     
-    link = str(art_json['_links']['thumbnail']['href']).replace("medium", "large")
+    link = str(art_json['_links']['thumbnail']['href']).replace("medium", "larger")
     artist_link = art_json['_links']['artists']['href']
     artist_json = requests.get(artist_link, headers = headers)
     artist_json = simplejson.loads(artist_json.text)
@@ -42,6 +44,7 @@ def get_artwork():
     print artist_nationality
     print art_name
     print art_medium
+    print link
 
     return {'artist_name': artist_name, 'artist_nationality': artist_nationality, 'art_name': art_name, 'art_medium': art_medium, 'link': link}
     
