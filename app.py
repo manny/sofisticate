@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, json
 from client import ClarifaiApi
 from random import randint
-from key import ARTSY_TOKEN
+from key import get_artsy_key
 import requests
 import simplejson
 
@@ -24,7 +24,8 @@ def top_tags(url):
 
 def get_artwork():
     args = {"offset": randint(0, 10000), "size":1}
-    headers = {"X-Xapp-Token": ARTSY_TOKEN}
+    key = get_artsy_key()
+    headers = {"X-Xapp-Token": key}
     arts = requests.get('https://api.artsy.net/api/artworks',params=args, headers=headers)  
     art_json = simplejson.loads(arts.text)
     if not art_json['_embedded']['artworks']:

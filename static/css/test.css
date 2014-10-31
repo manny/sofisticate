@@ -7,7 +7,7 @@ html {
 
 }
 
-body{
+body {
 	padding:0;
 	margin:0;
 
@@ -32,15 +32,17 @@ body{
 	transform: traslateY(60%);
 }
 
-#box{
+#box {
 	width: 25%;
-	height: 50%;
+	height: 60%;
 	display: inline-block;
-	-moz-border-radius: 15;
-	border-radius: 15;
+	-webkit-border-radius: 12;
+	-moz-border-radius: 12;
+	border-radius: 12;
 	background: rgba(0,0,0,0.75);
 }
 
-#sofisticate{
+#sofisticate {
 	margin-top: 5%;
+	align-bottom: true;
 }
