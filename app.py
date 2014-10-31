@@ -40,6 +40,8 @@ def get_artwork():
     artist_link = art_json['_links']['artists']['href']
     artist_json = requests.get(artist_link, headers = headers)
     artist_json = simplejson.loads(artist_json.text)
+    if not artist_json['_embedded']['artists']:
+        return get_artwork()
     artist_json = artist_json['_embedded']['artists'][0]
     
     artist_name = artist_json['name']
